@@ -10,6 +10,9 @@ import UIKit
 
 class CategoryCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
+    
+    var featuredAppsController = FeaturedAppsController()
+    
     //define property //when you set the property of 'appCategory' for this custom cell
     var appCategory: AppCategory? {
         didSet {
@@ -109,6 +112,14 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDelegate, UICollection
     //MARK: UICollectionViewDelegateFlowLayout Methods
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize.init(width: 100, height: frame.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("app selected")
+        if let app = appCategory?.apps?[indexPath.item] {
+            featuredAppsController.showAppDetailForApp(app: app)
+        }
+        
     }
     
     

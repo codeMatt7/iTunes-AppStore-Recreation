@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D6218DC51E312B0C005F18EC /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6218DC41E312B0C005F18EC /* Models.swift */; };
+		D65988C11E9347C400953505 /* AppDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65988C01E9347C400953505 /* AppDetailController.swift */; };
 		D66A457E1E2F3F4700074F53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66A457D1E2F3F4700074F53 /* AppDelegate.swift */; };
 		D66A45801E2F3F4700074F53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66A457F1E2F3F4700074F53 /* ViewController.swift */; };
 		D66A45831E2F3F4700074F53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D66A45811E2F3F4700074F53 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		D6218DC41E312B0C005F18EC /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		D65988C01E9347C400953505 /* AppDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDetailController.swift; sourceTree = "<group>"; };
 		D66A457A1E2F3F4700074F53 /* App Store.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Store.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D66A457D1E2F3F4700074F53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D66A457F1E2F3F4700074F53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			children = (
 				D66A457D1E2F3F4700074F53 /* AppDelegate.swift */,
 				D66A457F1E2F3F4700074F53 /* ViewController.swift */,
+				D65988C01E9347C400953505 /* AppDetailController.swift */,
 				D66A458F1E2FCBD900074F53 /* CategoryCell.swift */,
 				D6218DC41E312B0C005F18EC /* Models.swift */,
 				D66A45811E2F3F4700074F53 /* Main.storyboard */,
@@ -146,6 +149,7 @@
 				D66A45801E2F3F4700074F53 /* ViewController.swift in Sources */,
 				D66A457E1E2F3F4700074F53 /* AppDelegate.swift in Sources */,
 				D66A45901E2FCBD900074F53 /* CategoryCell.swift in Sources */,
+				D65988C11E9347C400953505 /* AppDetailController.swift in Sources */,
 				D6218DC51E312B0C005F18EC /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
