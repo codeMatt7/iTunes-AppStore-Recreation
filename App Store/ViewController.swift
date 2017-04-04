@@ -9,7 +9,7 @@
 import UIKit
 
 class FeaturedAppsController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-
+    
     private let cellId = "CellId"
     private let largeCellId = "LargeCellId"
     private let headerId = "headerId"
@@ -41,6 +41,7 @@ class FeaturedAppsController: UICollectionViewController, UICollectionViewDelega
     func showAppDetailForApp(app: App) {
         let layout = UICollectionViewFlowLayout()
         let appDetailController = AppDetailController(collectionViewLayout: layout)
+        appDetailController.app = app
         navigationController?.pushViewController(appDetailController, animated: true)
         
     }

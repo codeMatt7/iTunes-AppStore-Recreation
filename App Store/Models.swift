@@ -78,7 +78,7 @@ class AppCategory: NSObject {
                 let json = try (JSONSerialization.jsonObject(with: data!, options: .mutableContainers)) as! [String:AnyObject] //comes back as one large dictionay
                 
                 let featuredApps = FeaturedApps()
-                featuredApps.setValuesForKeys(json as! [String:Any])
+                featuredApps.setValuesForKeys(json as [String:Any])
                 
                 
                 

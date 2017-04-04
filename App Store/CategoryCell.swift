@@ -119,10 +119,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDelegate, UICollection
         if let app = appCategory?.apps?[indexPath.item] {
             featuredAppsController.showAppDetailForApp(app: app)
         }
-        
     }
-    
-    
 }
 
 //Custom cell that represents each cell inside of the second collection view
