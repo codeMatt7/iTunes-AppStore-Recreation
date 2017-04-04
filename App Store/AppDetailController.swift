@@ -61,6 +61,12 @@ class AppDetailHeader: BaseCell {
             if let appTitle = app?.name {
                 nameLabel.text = appTitle
             }
+            
+            if let price = app?.price {
+                buyButton.setTitle("$\(price.stringValue)", for: .normal)
+            } else {
+                buyButton.setTitle("Buy", for: .normal)
+            }
         }
     }
     
@@ -88,6 +94,24 @@ class AppDetailHeader: BaseCell {
         return label
     }()
     
+    //buy button
+    let buyButton: UIButton = {
+       let button = UIButton(type: .system)
+       button.setTitle("Buy", for: .normal)
+        button.layer.borderColor = UIColor(red: 0, green: 129/155, blue: 250/155, alpha: 1).cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        return button
+    }()
+    
+    //divider line
+    let dividerLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
+        return view
+    }()
+    
     override func setupViews() {
         super.setupViews()
         
@@ -95,6 +119,8 @@ class AppDetailHeader: BaseCell {
         addSubview(imageView)
         addSubview(segmentedControl)
         addSubview(nameLabel)
+        addSubview(buyButton)
+        addSubview(dividerLineView)
         
         //top left image view constraints
         addConstraintsWithFormat(format: "H:|-14-[v0(100)]-8-[v1]|", views: imageView, nameLabel)
@@ -105,9 +131,15 @@ class AppDetailHeader: BaseCell {
         //segmented control constraints
         addConstraintsWithFormat(format: "H:|-40-[v0]-40-|", views: segmentedControl)
         addConstraintsWithFormat(format: "V:[v0(34)]-8-|", views: segmentedControl)
-
         
+        //buyButton constraints 
+        addConstraintsWithFormat(format: "H:[v0(60)]-14-|", views: buyButton)
+        addConstraintsWithFormat(format: "V:[v0(32)]-56-|", views: buyButton)
         
+        //divider line constraints
+        addConstraintsWithFormat(format: "H:|[v0]|", views: dividerLineView)
+        addConstraintsWithFormat(format: "V:[v0(0.5)]|", views: dividerLineView)
+  
     }
     
 }
