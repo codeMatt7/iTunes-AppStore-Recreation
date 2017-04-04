@@ -22,7 +22,7 @@ class FeaturedAppsController: UICollectionViewController, UICollectionViewDelega
         
         navigationItem.title = "Featured Apps"
         
-        //appCategory = AppCategory.sampleAppCategories()
+        ///appCategory = AppCategory.sampleAppCategories()
 
         AppCategory.fetchFeaturedApps { (featuredApps) in
             self.featuredApps = featuredApps
