@@ -11,10 +11,47 @@ import UIKit
 class AppDetailController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     
+    private let cellId = "cellId"
+    private let descriptionCellID = "descriptionCellId"
+    
     //can be used to segue information
     var app: App? {
         didSet {
+            
+            if app?.screenshots != nil {
+                return
+            }
+            
             navigationItem.title = app?.name
+            
+            if let id = app?.id {
+                let urlString = "http://www.statsallday.com/appstore/appdetail?id=\(id)"
+                URLSession.shared.dataTask(with: URL(string:urlString)!, completionHandler: { (data, response, error) in
+                    
+                    if error != nil {
+                        print("error accessing url")
+                    } else {
+                        do {
+                           let json = try(JSONSerialization.jsonObject(with: data!, options: .mutableContainers))
+                            
+                            let appDetail = App()
+                            appDetail.setValuesForKeys(json as! [String: AnyObject])
+                            
+                            self.app = appDetail
+                            
+                            DispatchQueue.main.async(execute: {
+                                self.collectionView?.reloadData()
+                            })
+                            
+                        } catch {
+                            print("error loading json data")
+                        }
+                    }
+                    
+                    
+                }).resume()
+            }
+            
         }
     }
     
@@ -29,6 +66,38 @@ class AppDetailController: UICollectionViewController, UICollectionViewDelegateF
         
         //register header
         collectionView?.register(AppDetailHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
+        
+        //register cell
+        collectionView?.register(ScreenshotsCell.self, forCellWithReuseIdentifier: cellId)
+        
+        //regidter description cell
+        collectionView?.register(AppDetailDescriptionCell.self, forCellWithReuseIdentifier: descriptionCellID)
+    }
+    
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize.init(width: view.frame.width, height: 170)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        
+        //index 1 cell
+        if indexPath.item == 1 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: descriptionCellID, for: indexPath) as! AppDetailDescriptionCell
+            
+            return cell
+        }
+
+        
+        //index 0 cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ScreenshotsCell
+        cell.app = app
+        
+        return cell
     }
     
     
@@ -46,6 +115,27 @@ class AppDetailController: UICollectionViewController, UICollectionViewDelegateF
         return CGSize.init(width: view.frame.width, height: 170)
     }
     
+}
+
+class AppDetailDescriptionCell: BaseCell {
+    
+    let descriptionTextView: UITextView = {
+        let textView = UITextView()
+        textView.text = "Sample Description"
+        return textView
+    }()
+    
+    override func setupViews() {
+        super.setupViews()
+        
+        //add subviews
+        addSubview(descriptionTextView)
+        
+        //add constraints to description text view
+        addConstraintsWithFormat(format: "H:|-8-[v0]-8-|", views: descriptionTextView)
+        addConstraintsWithFormat(format: "V:|-4-[v0]-4-|", views: descriptionTextView)
+        
+    }
 }
 
 //top header cell of collection view
@@ -144,6 +234,7 @@ class AppDetailHeader: BaseCell {
     
 }
 
+//BaseCell for all custom cells
 class BaseCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
@@ -176,6 +267,8 @@ extension UIView {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
     }
 }
+
+
 
 
 
