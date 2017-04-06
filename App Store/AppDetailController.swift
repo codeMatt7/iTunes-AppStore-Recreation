@@ -75,6 +75,12 @@ class AppDetailController: UICollectionViewController, UICollectionViewDelegateF
     }
     
      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        //description cell
+        if indexPath.item == 1 {
+            return CGSize.init(width: view.frame.width, height: <#T##CGFloat#>)
+        }
+        
         return CGSize.init(width: view.frame.width, height: 170)
     }
     
@@ -89,6 +95,8 @@ class AppDetailController: UICollectionViewController, UICollectionViewDelegateF
         if indexPath.item == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: descriptionCellID, for: indexPath) as! AppDetailDescriptionCell
             
+            cell.descriptionTextView.attributedText = descriptionAttributedText()
+            
             return cell
         }
 
@@ -98,6 +106,24 @@ class AppDetailController: UICollectionViewController, UICollectionViewDelegateF
         cell.app = app
         
         return cell
+    }
+    
+    private func descriptionAttributedText() -> NSAttributedString {
+        let attributeText = NSMutableAttributedString(string: "Description\n", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)])
+        
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 10
+        
+        let range = NSMakeRange(0, attributeText.string.characters.count)
+        attributeText.addAttribute(NSParagraphStyleAttributeName, value: style, range: range)
+        
+        if let description = app?.desc {
+            attributeText.append(NSAttributedString(string: description, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 11), NSForegroundColorAttributeName: UIColor.darkGray]))
+        }
+        
+        
+        
+        return attributeText
     }
     
     
@@ -125,15 +151,25 @@ class AppDetailDescriptionCell: BaseCell {
         return textView
     }()
     
+    //divider line
+    let dividerLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
+        return view
+    }()
+    
     override func setupViews() {
         super.setupViews()
         
         //add subviews
         addSubview(descriptionTextView)
+        addSubview(dividerLineView)
         
         //add constraints to description text view
         addConstraintsWithFormat(format: "H:|-8-[v0]-8-|", views: descriptionTextView)
         addConstraintsWithFormat(format: "V:|-4-[v0]-4-|", views: descriptionTextView)
+        
+        
         
     }
 }
